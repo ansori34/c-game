@@ -3,10 +3,13 @@
 
 using namespace std;
 
+// Prototype
 int random(int min, int max);
 string upper(string answer);
 void showQuiz(string word, string hint);
 
+// Global Variable
+int score = 0;
 string answer;
 
 int main()
@@ -21,7 +24,9 @@ int main()
     "Benda untuk mengeringkan badan"
   };
 
-  for (int i = 0; i < 2; i++) {
+  int size = sizeof(word) / sizeof(word[0]);
+
+  for (int i = 0; i < size; i++) {
     cout << "Soal Ke - " << i + 1 << " : " << endl << endl;
     showQuiz(word[i], hint[i]);
   }
@@ -48,6 +53,8 @@ void showQuiz(string word, string hint)
 
   srand(time(NULL));
 
+  cout << "=================================================" << endl << endl;
+
   for (int i = 0; i < length; i++) {
     int rnd = random(0, wordCount);
     cout << temp[rnd] << " ";
@@ -56,11 +63,13 @@ void showQuiz(string word, string hint)
   }
 
   cout << endl << "Hint : " << hint << endl;
+  cout << endl << "=================================================";
   cout << endl << "Jawaban = ";
   cin >> answer;
 
   if (upper(answer) == word) {
     cout << "Jawaban Kamu Benar" << endl << endl;
+    score += 10;
   } else {
     cout << "Jawaban Kamu Salah";
   }
