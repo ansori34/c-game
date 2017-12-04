@@ -3,25 +3,41 @@
 
 using namespace std;
 
-// Prototype
+/**
+  random = Untuk generate angka Random dengan range tertentu
+  getScore = Untuk melakukan perhitungan skor
+  upper = Untuk membuat inputan user menjadi Huruf Kapital
+  showQuiz = untuk menampilkan Quiz
+*/
 int random(int min, int max);
+int getScore();
 string upper(string answer);
 void showQuiz(string word, string hint);
 
-// Global Variable
-int score = 0;
+/**
+  correct = Untuk Menghitung jumlah Jawaban Benar
+  wrong = Untuk Menghitung jumlah Jawaban Salah
+  winScore = Jumlah skor minimal untuk menang
+*/
+int correct = 0, wrong = 0, winScore = 35;
 string answer;
 
 int main()
 {
   string word[] = {
     "UMBRELLA",
-    "TOWEL"
+    "TOWEL",
+    "STRAWBERRY",
+    "WARDROBE",
+    "ELEPHANT"
   };
 
   string hint[] = {
     "Benda yang dipakai saat musim hujan tiba",
-    "Benda untuk mengeringkan badan"
+    "Benda untuk mengeringkan badan",
+    "Buah yang memiliki warna umum merah dan berbintik",
+    "Benda untuk menyimpan pakaian",
+    "Hewan yang memiliki ukuran tubuh besar"
   };
 
   int size = sizeof(word) / sizeof(word[0]);
@@ -30,11 +46,28 @@ int main()
     cout << "Soal Ke - " << i + 1 << " : " << endl << endl;
     showQuiz(word[i], hint[i]);
   }
+
+  cout << "Jawaban Benar = " << correct << endl;
+  cout << "Jawaban Salah = " << wrong << endl << endl;
+
+  cout << "Skor Akhir = " << getScore() << endl;
+  cout << "Skor Minimal = " << winScore << endl;
+
+  if (getScore() >= winScore) {
+    cout << endl << "Horee, Kamu Menang :)";
+  } else {
+    cout << endl << "Yah, Kamu Kalah :(";
+  }
 }
 
 int random(int min, int max)
 {
     return min + (rand() % ( max - min + 1 ));
+}
+
+int getScore()
+{
+  return (correct * 10) - (wrong * 5);
 }
 
 string upper(string answer)
@@ -68,9 +101,10 @@ void showQuiz(string word, string hint)
   cin >> answer;
 
   if (upper(answer) == word) {
-    cout << "Jawaban Kamu Benar" << endl << endl;
-    score += 10;
+    correct++;
   } else {
-    cout << "Jawaban Kamu Salah";
+    wrong++;
   }
+
+  system("clear");
 }
